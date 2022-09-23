@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
+// import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import theme from "./utils/theme";

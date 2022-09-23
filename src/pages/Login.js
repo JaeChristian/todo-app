@@ -48,7 +48,7 @@ function Login() {
       });
   }
   return (
-    <Container mt={10}>
+    <Container p={10}>
       <Flex
         flexDir="column"
         justifyContent="center"
