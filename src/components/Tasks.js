@@ -1,8 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Task from "./Task";
 
 function Tasks({ tasks = [], loading }) {
-  if (loading) return <Text>Loading</Text>;
+  // if (loading) return <Text>Loading</Text>;
   return (
     <Box w="100%">
       {tasks &&

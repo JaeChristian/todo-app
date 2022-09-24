@@ -8,8 +8,8 @@ function Task({ task }) {
       w="100%"
       _hover={{ bg: "gray.50" }}
       _focus={{ bg: "gray.100" }}
-      pl={2}
-      pr={2}
+      pl={3}
+      pr={3}
       tabIndex="1"
     >
       <Checkbox
