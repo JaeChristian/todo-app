@@ -1,5 +1,6 @@
 import { Checkbox, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import DateFormatter from "../utils/DateFormatter";
 
 function ViewTask({ currentTask }) {
   const [title, setTitle] = useState("");
@@ -10,80 +11,8 @@ function ViewTask({ currentTask }) {
     setBody(currentTask?.body);
   }, [currentTask]);
 
-  let date = new Date(currentTask?.dueDate);
-  let day = "";
-  let month = "";
-
-  switch (date.getDay()) {
-    case 0:
-      day = "Sunday";
-      break;
-    case 1:
-      day = "Monday";
-      break;
-    case 2:
-      day = "Tuesday";
-      break;
-    case 3:
-      day = "Wednesday";
-      break;
-    case 4:
-      day = "Thursday";
-      break;
-    case 5:
-      day = "Friday";
-      break;
-    case 6:
-      day = "Saturday";
-      break;
-    default:
-      day = "asdf";
-  }
-
-  switch (date.getMonth()) {
-    case 0:
-      month = "January";
-      break;
-    case 1:
-      month = "February";
-      break;
-    case 2:
-      month = "March";
-      break;
-    case 3:
-      month = "April";
-      break;
-    case 4:
-      month = "May";
-      break;
-    case 5:
-      month = "June";
-      break;
-    case 6:
-      month = "July";
-      break;
-    case 7:
-      month = "August";
-      break;
-    case 8:
-      month = "September";
-      break;
-    case 9:
-      month = "October";
-      break;
-    case 10:
-      month = "November";
-      break;
-    case 11:
-      month = "December";
-      break;
-    default:
-      month = "asdf";
-  }
-  const formatHours = date.getHours() % 12 === 0 ? "12" : date.getHours() % 12;
-  const formatMinutes = date.getMinutes() === 0 ? "00" : date.getMinutes();
-  const AMPM = date.getHours() > 12 ? "PM" : "AM";
-  const DateString = `${day}, ${month} ${date.getDate()}, ${formatHours}:${formatMinutes} ${AMPM}`;
+  let formatDate = new DateFormatter(new Date(currentTask?.dueDate));
+  const DateString = formatDate.dateToString();
 
   //   console.log(currentTask.completed);
   return currentTask ? (
@@ -114,7 +43,7 @@ function ViewTask({ currentTask }) {
           fontWeight="bold"
           border="none"
           _focusVisible={{}}
-          value={title}
+          value={title ? title : ""}
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
