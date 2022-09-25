@@ -17,7 +17,7 @@ function Home() {
     loading: isTasksLoading,
     error: tasksError,
     refetch: refetchTasks,
-  } = useFetch("tasks/all");
+  } = useFetch("tasks");
 
   if (authLoading) {
     return <p>LOAAAAADDING</p>;
@@ -55,7 +55,7 @@ function Home() {
         />
       </Flex>
       <Box w="42.5%">
-        <ViewTask currentTaskId={currentTaskId} />
+        <ViewTask currentTaskId={currentTaskId} refetch={refetchTasks} />
       </Box>
     </Flex>
   );

@@ -1,20 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import requestHeaders from "../utils/requestHeaders";
 
 function useAutoSave(data, currentTaskId, delay = 500) {
   const api = requestHeaders(`tasks/${currentTaskId}`);
+  const [saving, setSaving] = useState(false);
   useEffect(() => {
     if (currentTaskId) {
       const timeoutId = setTimeout(() => {
-        console.log(data, "saving");
         api
           .put("/", data)
           .then((res) => {
-            console.log(res.data);
+            console.log(res.data, "saved");
           })
           .catch((err) => {
             console.log(err);
-          });
+          })
+          .finally(() => {});
       }, delay);
 
       return () => {

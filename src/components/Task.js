@@ -17,7 +17,7 @@ function Task({ task, setCurrentTaskId }) {
         borderColor="blackAlpha.300"
         _focusVisible={{}}
         _selected={{}}
-        defaultChecked={task.completed}
+        isChecked={task.completed}
         size="md"
       />
       <Flex
