@@ -4,7 +4,7 @@ import Task from "./Task";
 function Tasks({ tasks = [], loading, setCurrentTask }) {
   // if (loading) return <Text>Loading</Text>;
   return (
-    <Box w="100%">
+    <Box w="100%" overflowY="scroll" mt={3}>
       {tasks &&
         tasks.map((task) => {
           return (

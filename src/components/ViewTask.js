@@ -2,6 +2,14 @@ import { Checkbox, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 function ViewTask({ currentTask }) {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  useEffect(() => {
+    setTitle(currentTask?.title);
+    setBody(currentTask?.body);
+  }, [currentTask]);
+
   let date = new Date(currentTask?.dueDate);
   let day = "";
   let month = "";
@@ -72,18 +80,10 @@ function ViewTask({ currentTask }) {
     default:
       month = "asdf";
   }
-
-  const DateString = `${day}, ${month} ${date.getDate()}, ${
-    date.getHours() % 12
-  }:${date.getMinutes()} ${date.getHours() > 12 ? "PM" : "AM"}`;
-
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-
-  useEffect(() => {
-    setTitle(currentTask?.title);
-    setBody(currentTask?.body);
-  }, [currentTask]);
+  const formatHours = date.getHours() % 12 === 0 ? "12" : date.getHours() % 12;
+  const formatMinutes = date.getMinutes() === 0 ? "00" : date.getMinutes();
+  const AMPM = date.getHours() > 12 ? "PM" : "AM";
+  const DateString = `${day}, ${month} ${date.getDate()}, ${formatHours}:${formatMinutes} ${AMPM}`;
 
   //   console.log(currentTask.completed);
   return currentTask ? (
@@ -125,7 +125,8 @@ function ViewTask({ currentTask }) {
             fontSize: "14px",
             fontWeight: "500",
             outline: "none",
-            padding: "20px",
+            paddingLeft: "18px",
+            paddingRight: "18px",
             border: "none",
           }}
           value={body ? body : ""}

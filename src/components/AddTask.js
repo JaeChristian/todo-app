@@ -25,7 +25,7 @@ function AddTask({ refetch }) {
   };
 
   return (
-    <Box pl={2} pr={2} mt={2}>
+    <Box pl={2} pr={2}>
       <form onSubmit={onSubmit}>
         <Input
           bg="gray.100"
@@ -35,6 +35,7 @@ function AddTask({ refetch }) {
           fontWeight="600"
           fontSize="14px"
           value={taskTitle}
+          placeholder="Create new task for Inbox. Press enter to save."
           onChange={(e) => setTaskTitle(e.target.value)}
         />
       </form>

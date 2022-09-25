@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/home.css";
@@ -17,7 +17,7 @@ function Home() {
     loading: isTasksLoading,
     error: tasksError,
     refetch: refetchTasks,
-  } = useFetch("tasks");
+  } = useFetch("tasks/all");
   const [currentTask, setCurrentTask] = useState(null);
 
   if (authLoading) {
@@ -44,8 +44,10 @@ function Home() {
         w={{ base: "100%", sm: "42.5%" }}
         className="tasks-panel"
         flexDir="column"
-        gap={2}
       >
+        <Flex p="17px" pr={2} pl={2} alignItems="center">
+          <Heading fontSize="2xl">~ Inbox</Heading>
+        </Flex>
         <AddTask refetch={refetchTasks} />
         <Tasks
           tasks={tasks}
