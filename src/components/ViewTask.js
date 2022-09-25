@@ -1,4 +1,5 @@
 import { Checkbox, Flex, Input, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 function ViewTask({ currentTask }) {
   let date = new Date(currentTask?.dueDate);
@@ -76,6 +77,14 @@ function ViewTask({ currentTask }) {
     date.getHours() % 12
   }:${date.getMinutes()} ${date.getHours() > 12 ? "PM" : "AM"}`;
 
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  useEffect(() => {
+    setTitle(currentTask?.title);
+    setBody(currentTask?.body);
+  }, [currentTask]);
+
   //   console.log(currentTask.completed);
   return currentTask ? (
     <Flex w="100%" flexDir="column">
@@ -105,16 +114,32 @@ function ViewTask({ currentTask }) {
           fontWeight="bold"
           border="none"
           _focusVisible={{}}
-          value={currentTask?.title}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
-        <Input
+        <textarea
+          wrap="soft"
+          rows="20"
+          style={{
+            resize: "none",
+            fontSize: "14px",
+            fontWeight: "500",
+            outline: "none",
+            padding: "20px",
+            border: "none",
+          }}
+          value={body ? body : ""}
+          onChange={(e) => setBody(e.target.value)}
+        />
+        {/* <Input
           placeholder="Description"
           fontSize="14px"
           fontWeight="500"
           border="none"
           _focusVisible={{}}
-          value={currentTask?.body ? currentTask.body : ""}
-        />
+          value={body ? body : ""}
+          onChange={(e) => setBody(e.target.value)}
+        /> */}
       </Flex>
     </Flex>
   ) : (
