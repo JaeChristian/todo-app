@@ -1,20 +1,24 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/home.css";
 import AddTask from "../components/AddTask";
 import Tasks from "../components/Tasks";
+import ViewTask from "../components/ViewTask";
 import useFetch from "../hooks/useFetch";
 
 function Home() {
-  const navigate = useNavigate();
   // localStorage.removeItem("token");
+  const navigate = useNavigate();
   const { loading: authLoading, error: authError } = useFetch("authenticate");
+
   const {
     data: tasks,
     loading: isTasksLoading,
     error: tasksError,
     refetch: refetchTasks,
   } = useFetch("tasks");
+  const [currentTask, setCurrentTask] = useState(null);
 
   if (authLoading) {
     return <p>LOAAAAADDING</p>;
@@ -43,11 +47,15 @@ function Home() {
         gap={2}
       >
         <AddTask refetch={refetchTasks} />
-        <Tasks tasks={tasks} loading={isTasksLoading} />
+        <Tasks
+          tasks={tasks}
+          loading={isTasksLoading}
+          setCurrentTask={setCurrentTask}
+        />
       </Flex>
-      <Flex display={{ base: "none", sm: "flex" }} className="view-task-panel">
-        view
-      </Flex>
+      <Box w="42.5%">
+        <ViewTask currentTask={currentTask} />
+      </Box>
     </Flex>
   );
 }

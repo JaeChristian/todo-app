@@ -1,7 +1,6 @@
 import { Checkbox, Flex, Text } from "@chakra-ui/react";
 
-function Task({ task }) {
-  console.log(task);
+function Task({ task, setCurrentTask }) {
   return (
     <Flex
       gap={1}
@@ -11,6 +10,7 @@ function Task({ task }) {
       pl={3}
       pr={3}
       tabIndex="1"
+      onClick={() => setCurrentTask(task)}
     >
       <Checkbox
         colorScheme="gray"

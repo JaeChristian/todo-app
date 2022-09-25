@@ -15,6 +15,7 @@ function AddTask({ refetch }) {
       .post(`${API_URL}/tasks`, task)
       .then((res) => {
         console.log(res.data, "success");
+        setTaskTitle("");
         refetch();
       })
       .catch((err) => {
