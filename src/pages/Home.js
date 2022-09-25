@@ -11,14 +11,13 @@ function Home() {
   // localStorage.removeItem("token");
   const navigate = useNavigate();
   const { loading: authLoading, error: authError } = useFetch("authenticate");
-
+  const [currentTaskId, setCurrentTaskId] = useState(null);
   const {
     data: tasks,
     loading: isTasksLoading,
     error: tasksError,
     refetch: refetchTasks,
   } = useFetch("tasks/all");
-  const [currentTask, setCurrentTask] = useState(null);
 
   if (authLoading) {
     return <p>LOAAAAADDING</p>;
@@ -52,11 +51,11 @@ function Home() {
         <Tasks
           tasks={tasks}
           loading={isTasksLoading}
-          setCurrentTask={setCurrentTask}
+          setCurrentTaskId={setCurrentTaskId}
         />
       </Flex>
       <Box w="42.5%">
-        <ViewTask currentTask={currentTask} />
+        <ViewTask currentTaskId={currentTaskId} />
       </Box>
     </Flex>
   );

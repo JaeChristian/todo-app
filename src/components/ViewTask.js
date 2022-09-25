@@ -1,15 +1,39 @@
 import { Checkbox, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import useAutoSave from "../hooks/useAutoSave";
+import useFetch from "../hooks/useFetch";
 import DateFormatter from "../utils/DateFormatter";
 
-function ViewTask({ currentTask }) {
+function ViewTask({ currentTaskId }) {
+  const [currentTask, setCurrentTask] = useState(null);
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [isCompleted, setIsCompleted] = useState(false);
+  useAutoSave(
+    {
+      title: title,
+      body: body,
+      completed: isCompleted,
+      id: currentTaskId,
+      dueDate: currentTask?.dueDate,
+    },
+    currentTaskId
+  );
+
+  const {
+    data: taskData,
+    loading: taskLoading,
+    error: taskError,
+  } = useFetch(`tasks/${currentTaskId}`);
 
   useEffect(() => {
+    setCurrentTask(taskData);
     setTitle(currentTask?.title);
     setBody(currentTask?.body);
-  }, [currentTask]);
+    setIsCompleted(currentTask?.completed);
+    console.log("rendered");
+  }, [currentTask, taskData]);
 
   let formatDate = new DateFormatter(new Date(currentTask?.dueDate));
   const DateString = formatDate.dateToString();
@@ -24,7 +48,8 @@ function ViewTask({ currentTask }) {
           _focusVisible={{}}
           _selected={{}}
           size="md"
-          isChecked={currentTask.completed}
+          isChecked={isCompleted}
+          onChange={() => setIsCompleted(!isCompleted)}
         />
         {currentTask.dueDate ? (
           <Text fontSize="15px" fontWeight="600" color="green.400">

@@ -1,7 +1,6 @@
 import { Box, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import requestHeaders from "../utils/requestHeaders";
-import { API_URL } from "../utils/URLhandler";
 
 function AddTask({ refetch }) {
   const [taskTitle, setTaskTitle] = useState("");
@@ -12,7 +11,7 @@ function AddTask({ refetch }) {
       title: taskTitle,
     };
     api
-      .post(`${API_URL}/tasks`, task)
+      .post(`/`, task)
       .then((res) => {
         console.log(res.data, "success");
         setTaskTitle("");
