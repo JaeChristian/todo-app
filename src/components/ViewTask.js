@@ -36,6 +36,8 @@ function ViewTask({ currentTaskId, refetch }) {
     console.log("rendered");
   }, [currentTask, taskData]);
 
+  // This hook refetches whenever title or checkbox is changed. This will need to be refactored in the future because slow internet will
+  // cause the hook to break due to its timeout at 1000ms nature. Needs to refetch after autoSave promise is fulfilled instead.
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       refetch();
